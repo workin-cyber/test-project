@@ -6,8 +6,8 @@ export const LoginContext = createContext()
 export default function Login({ children }) {
 
     const loginState = useState(),
-        [mode, setMode] = useState('login'),//or 'register'
         [user, setUser] = loginState,
+        [mode, setMode] = useState('login'),//or 'register'
         [error, setError] = useState('')
 
     async function login(event) {
@@ -25,6 +25,7 @@ export default function Login({ children }) {
             const res = await axios.post(`http://localhost:4000/${mode}`, values)
 
             if (values.stay) localStorage.token = res.data.token
+            else sessionStorage.token = res.data.token
 
             setUser(res.data)
         }
